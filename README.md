@@ -37,6 +37,8 @@ Go to the to-do-list folder and run the following commands.
 $ docker-compose up -d
 ```
 
+If you want to see the code, [click here](./server/ToDoList/)
+
 And that's it, your To-Do List is running.
 
 ## Built With
