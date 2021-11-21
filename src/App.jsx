@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -22,6 +23,18 @@ const App = () => {
       completed: true
     }
   ]);
+
+  useEffect(() => {
+    const fecthTasks = async () => {
+      const response = await axios.get("http://localhost:8080/tasks/alltasks")
+
+      console.log(response)
+    }
+
+
+
+    fecthTasks();
+  }, [tasks]);
 
   const handleTaskClick = (taskId) => {
     const newTasks = tasks.map(task => {

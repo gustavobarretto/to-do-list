@@ -16,6 +16,7 @@ public class TaskController {
     @Autowired
     TaskService taskService;
 
+    @CrossOrigin(origins = "http://localhost:3000/")
     @PostMapping("/save_task")
     public ResponseEntity<String> save_task(@RequestBody Task task) {
         ResponseEntity<String> response = null;
@@ -28,11 +29,13 @@ public class TaskController {
         return response;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000/")
     @GetMapping("/alltasks")
     public ResponseEntity<List<Task>> searchAll() {
         return ResponseEntity.ok(taskService.allTasks());
     }
 
+    @CrossOrigin(origins = "http://localhost:3000/")
     @DeleteMapping("/delete_task")
     public ResponseEntity<String> delete_task (@RequestBody Task task) {
         ResponseEntity<String> response = null;

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>ToDoList</artifactId>
+	<artifactId>ToDoList_server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ToDoList</name>
+	<name>ToDoList_server</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
