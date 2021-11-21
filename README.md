@@ -48,6 +48,9 @@ And that's it, your To-Do List is running.
 * [ReactJS](https://reactjs.org/)
 * [Java JDK 11](https://www.oracle.com/technetwork/java/index.html)
 * [Docker](https://www.docker.com/)
+* [Hibernate](https://hibernate.org/)
+* [Spring Boot](https://spring.io/projects/spring-boot/)
+
 
 
 ## Autor
