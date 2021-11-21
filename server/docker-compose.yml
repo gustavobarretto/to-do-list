@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    
+    
+
+# networks:
+#   web_tasks_network:
+#     driver: bridge
+
+    #volumes:
+    #  site:
+
+    # docker-compose up -d
+    #mvn install
+    #./mvnw clean package -DskipTests

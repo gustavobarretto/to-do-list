@@ -7,26 +7,29 @@ const Task = ({task , handleTaskClick, handleTaskDeletion}) => {
     const history = useHistory();
 
     const handleTaskDetailsClick = () => {
-        history.push(`/${task.title}`)
+        history.push(`/${task.id}`)
     }
     
     return ( 
         <div className="task-container" onClick={(e) => {
             e.stopPropagation();
-            handleTaskClick(task.id)
+            handleTaskClick(task)
         }
-         } style={task.completed ? {borderLeft: "6px solid chartreuse"} : {}}>
+         } style={task.isCompleted ? {borderLeft: "6px solid chartreuse"} : {}}>
             <div className="task-title" >
                 {task.title}
             </div>
 
             <div className="buttons-container">
-                <button className="see-task-details-button" onClick={handleTaskDetailsClick}>
+                <button className="see-task-details-button" onClick={ (e) => {
+                    e.stopPropagation();
+                    handleTaskDetailsClick();
+                    }}>
                     <CgInfo />
                 </button>
                 <button className="remove-task-button" onClick={ (e) => {
                     e.stopPropagation();
-                    handleTaskDeletion(task.id);
+                    handleTaskDeletion(task);
                 }}>
                     <CgClose />
                 </button>

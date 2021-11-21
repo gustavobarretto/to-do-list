@@ -15,6 +15,19 @@
     font-size: 16px;
 }
 
+.task-description {
+    display: flex;
+    width: 100%; 
+    padding: 10px;
+    height: 100px;
+    background-color: #444;
+    color: #eee;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    resize: none;   
+}
+
 .add-task-button-container {
     margin-left: 10px;
     flex: 1;

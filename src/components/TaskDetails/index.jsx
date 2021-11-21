@@ -4,13 +4,21 @@ import './style.css';
 import { useParams, useHistory } from 'react-router-dom';
 
 
-const TaskDetails = () => {
-    const params = useParams();
+const TaskDetails = ({tasks}) => {
     const history = useHistory();
+    const params = useParams();
 
     const handleBackButtonClick = () => {
         history.goBack();
     }
+    
+    const task = tasks.filter( task => {
+
+        if(task.id === Number(params.idTask))
+            return task;
+        else
+            return null
+    })
 
     return (
         <>
@@ -18,15 +26,9 @@ const TaskDetails = () => {
                 <Button onClick={handleBackButtonClick}>Voltar</Button>
             </div>
             <div className="task-details-container">
-                <h2>{params.taskTitle}</h2>
+                <h2>{task[0].title}</h2>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Consectetur dignissimos
-                    magni laboriosam assumenda culpa autem
-                    atque nulla quos cupiditate sit
-                    quaerat qui, dolorum perferendis neque
-                    rerum alias blanditiis,
-                    voluptatibus accusamus.
+                    {task[0].description}
                 </p>
             </div>
 

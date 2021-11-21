@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './App.css'
@@ -11,60 +10,62 @@ import TaskDetails from './components/TaskDetails';
 
 
 const App = () => {
-  const [tasks, setTasks] = useState([
-    {
-      id: '1',
-      title: 'Estudar Programação',
-      completed: false
-    },
-    {
-      id: '2',
-      title: 'Ler livros',
-      completed: true
-    }
-  ]);
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     const fecthTasks = async () => {
-      const response = await axios.get("http://localhost:8080/tasks/alltasks")
-
-      console.log(response)
+      const { data } = await axios.get("http://localhost:8080/alltasks")
+      setTasks(data);
     }
-
-
-
     fecthTasks();
-  }, [tasks]);
+  }, []);
 
-  const handleTaskClick = (taskId) => {
+  const handleTaskClick = (taskToBeChecked) => {
+    const fetchTaskCompleted = async () => {
+      await axios.post("http://localhost:8080/save_task", {
+        id: taskToBeChecked.id,
+        title: taskToBeChecked.title,
+        description: taskToBeChecked.description,
+        isCompleted: !!taskToBeChecked.isCompleted ? false : true
+      })
+    }
     const newTasks = tasks.map(task => {
-      if (task.id === taskId) return { ...task, completed: !task.completed };
+      if (task.id === taskToBeChecked.id) return { ...task, isCompleted: !task.isCompleted };
 
       return task;
     });
 
     setTasks(newTasks);
+    fetchTaskCompleted();
   }
 
-  const handleTaskAddition = (taskTitle) => {
-    const newTask = [
-      ...tasks,
+  const handleTaskAddition = (titleTask, descriptionTask) => {
+    const fecthAddingNewTask = async () => {
+      await axios.post("http://localhost:8080/save_task",
       {
-        title: taskTitle,
-        id: uuidv4(),
-        completed: false
-      },
-    ];
-
-    setTasks(newTask);
-
+        title: titleTask,
+        description: descriptionTask,
+        isCompleted: false
+      })
+      setTasks([...tasks, {
+        title: titleTask,
+        description: descriptionTask,
+        isCompleted: false
+      }]);
+    }
+    fecthAddingNewTask();
   }
 
-  const handleTaskDeletion = (taskId) => {
+  const handleTaskDeletion = (taskToBeRemoved) => {
+    const fetchRemoveTask = async () => {
+      await axios.delete(`http://localhost:8080/${taskToBeRemoved.id}`)
+    }
+
     const newTasks = tasks.filter(task => {
-      return task.id !== taskId;
+      return task.id !== taskToBeRemoved.id;
     })
     setTasks(newTasks);
+    fetchRemoveTask();
   }
 
   return (
@@ -85,9 +86,11 @@ const App = () => {
           )}
         />
         <Route 
-          path="/:taskTitle"
-          exact component = {
-            TaskDetails
+          path="/:idTask"
+          exact render = { () => (
+
+            <TaskDetails tasks={tasks}/>
+          )
           }
         />
       </div>
