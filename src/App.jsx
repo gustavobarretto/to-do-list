@@ -18,7 +18,7 @@ const App = () => {
       setTasks(data);
     }
     fecthTasks();
-  }, []);
+  }, [tasks]);
 
   const handleTaskClick = (taskToBeChecked) => {
     const fetchTaskCompleted = async () => {
